@@ -1,0 +1,1 @@
+FROM onepanel/cvat:v0.19.0_cvat.1.0.0
