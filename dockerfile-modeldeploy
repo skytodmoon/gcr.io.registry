@@ -1,0 +1,1 @@
+FROM pubalglib/model_deployment_server:1.0.0
