@@ -1,1 +1,1 @@
-FROM heartexlabs/label-studio:latest
+FROM heartexlabs/label-studio:1.6.0
