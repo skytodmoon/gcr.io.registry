@@ -1,0 +1,1 @@
+FROM youdaoyzbx/ymir-executor:ymir2.1.0-mmseg-cu111-tmi
