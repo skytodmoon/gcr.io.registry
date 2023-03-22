@@ -1,0 +1,1 @@
+FROM openvino/cvat_ui:v2.1.0
