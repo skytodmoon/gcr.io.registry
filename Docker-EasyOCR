@@ -1,0 +1,1 @@
+FROM ghcr.io/bentoml/ocr-as-a-service:cpu
