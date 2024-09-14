@@ -1,1 +1,1 @@
-FROM industryessentials/ymir-web:release-2.1.0
+FROM industryessentials/ymir-web:release-2.5.0
