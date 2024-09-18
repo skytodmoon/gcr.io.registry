@@ -1,1 +1,1 @@
-FROM labelfree/open:3.2.0
+FROM labelfree/open:4.4.0
