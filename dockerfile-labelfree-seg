@@ -1,1 +1,1 @@
-FROM labelfree/open_seg:3.2.0
+FROM labelfree/open_seg:3.3.2
