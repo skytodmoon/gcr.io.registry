@@ -1,0 +1,1 @@
+FROM industryessentials/ymir-backend-redis:latest
