@@ -1,0 +1,1 @@
+FROM nanfei666/ymir-executor:ymir2.1.0-yolov8-tmi
