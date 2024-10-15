@@ -1,0 +1,1 @@
+FROM tugraph/tugraph-compile-centos7
