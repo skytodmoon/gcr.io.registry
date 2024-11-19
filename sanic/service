@@ -1,0 +1,1 @@
+FROM apconw/sanic-web:1.0
