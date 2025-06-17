@@ -27,6 +27,8 @@ RUN conda create -n index-tts python=3.10 -y \
 
 # 激活环境并安装关键依赖（修改为conda run）
 SHELL ["/bin/bash", "-c"]
+RUN conda run -n index-tts pip install --upgrade pip setuptools wheel
+
 RUN conda run -n index-tts pip install \
     --trusted-host pypi.org \
     --trusted-host files.pythonhosted.org \
