@@ -1,5 +1,5 @@
 # 使用H100兼容的CUDA 12.1基础镜像（含cuDNN8）
-FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
+FROM registry.cn-zhangjiakou.aliyuncs.com/com_futuremake/nvvidia:1.0
 
 # 设置工作目录
 WORKDIR /app
