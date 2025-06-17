@@ -1,0 +1,54 @@
+# 使用H100兼容的CUDA 12.1基础镜像（含cuDNN8）
+FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装系统依赖（包含ffmpeg和编译工具）
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    ffmpeg \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装Miniconda管理Python环境
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh \
+    && bash miniconda.sh -b -p /miniconda \
+    && rm miniconda.sh
+
+# 配置conda环境变量
+ENV PATH="/miniconda/bin:$PATH"
+
+# 创建项目专用conda环境（Python 3.10）
+RUN conda create -n index-tts python=3.10 -y \
+    && echo "conda activate index-tts" >> ~/.bashrc
+
+# 激活环境并安装关键依赖（新增huggingface_hub）
+SHELL ["/bin/bash", "-c"]
+RUN conda activate index-tts \
+    && pip install vllm fastapi uvicorn huggingface_hub  # 新增huggingface_hub
+
+# 克隆项目代码并安装
+RUN git clone https://gitee.com/your-username/index-tts.git \
+    && cd index-tts \
+    && pip install -e .
+
+# 配置环境变量（可选：加速HuggingFace下载）
+ENV HF_ENDPOINT="https://hf-mirror.com"
+
+# 新增：下载IndexTTS-1.5模型到checkpoints目录
+RUN cd index-tts \
+    && mkdir -p checkpoints \
+    && huggingface-cli download IndexTeam/IndexTTS-1.5 \
+        config.yaml bigvgan_discriminator.pth bigvgan_generator.pth bpe.model dvae.pth gpt.pth unigram_12000.vocab \
+        --local-dir checkpoints
+
+
+
+# 示例命令：运行推理脚本（需提前下载模型到checkpoints目录）
+# 暴露API端口
+EXPOSE 8000
+
+# 启动API服务（替代原推理命令）
+CMD ["conda", "run", "-n", "index-tts", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
