@@ -28,12 +28,15 @@ RUN conda create -n index-tts python=3.10 -y \
 # 激活环境并安装关键依赖（修改为conda run）
 SHELL ["/bin/bash", "-c"]
 RUN conda run -n index-tts pip install --upgrade pip setuptools wheel
-
 RUN conda run -n index-tts pip install \
-    --trusted-host pypi.org \
-    --trusted-host files.pythonhosted.org \
-    vllm fastapi uvicorn huggingface_hub \
-    -i https://pypi.tuna.tsinghua.edu.cn/simple/  # 使用清华镜像源
+    fastapi uvicorn huggingface_hub \
+    -i https://pypi.tuna.tsinghua.edu.cn/simple/
+
+# 单独安装vllm（指定支持CUDA 12.1的版本）
+RUN conda run -n index-tts pip install \
+    --pre "vllm>=0.4.0" \
+    --extra-index-url https://pypi.nvidia.com \
+    -i https://pypi.tuna.tsinghua.edu.cn/simple/
 
 # 克隆项目代码并安装
 RUN git clone https://gitee.com/your-username/index-tts.git \
