@@ -27,7 +27,11 @@ RUN conda create -n index-tts python=3.10 -y \
 
 # 激活环境并安装关键依赖（修改为conda run）
 SHELL ["/bin/bash", "-c"]
-RUN conda run -n index-tts pip install vllm fastapi uvicorn huggingface_hub  # 改用conda run直接执行
+RUN conda run -n index-tts pip install \
+    --trusted-host pypi.org \
+    --trusted-host files.pythonhosted.org \
+    vllm fastapi uvicorn huggingface_hub \
+    -i https://pypi.tuna.tsinghua.edu.cn/simple/  # 使用清华镜像源
 
 # 克隆项目代码并安装
 RUN git clone https://gitee.com/your-username/index-tts.git \
