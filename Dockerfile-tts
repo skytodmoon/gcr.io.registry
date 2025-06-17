@@ -39,12 +39,9 @@ ENV HF_ENDPOINT="https://hf-mirror.com"
 
 # 新增：下载IndexTTS-1.5模型到checkpoints目录
 RUN cd index-tts \
-    && mkdir -p checkpoints \
     && huggingface-cli download IndexTeam/IndexTTS-1.5 \
         config.yaml bigvgan_discriminator.pth bigvgan_generator.pth bpe.model dvae.pth gpt.pth unigram_12000.vocab \
         --local-dir checkpoints
-
-
 
 # 示例命令：运行推理脚本（需提前下载模型到checkpoints目录）
 # 暴露API端口
