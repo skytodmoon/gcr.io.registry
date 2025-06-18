@@ -30,7 +30,9 @@ SHELL ["/bin/bash", "-c"]
 RUN conda run -n index-tts pip install --upgrade pip setuptools wheel
 RUN conda run -n index-tts pip install \
     fastapi uvicorn huggingface_hub \
-    -i https://pypi.tuna.tsinghua.edu.cn/simple/
+    --index-url https://pypi.org/simple/ \
+    --trusted-host pypi.org \
+    --trusted-host files.pythonhosted.org
 
 # 单独安装vllm（指定支持CUDA 12.1的版本）
 RUN conda run -n index-tts pip install \
